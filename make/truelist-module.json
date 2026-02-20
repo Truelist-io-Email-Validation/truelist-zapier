@@ -1,0 +1,88 @@
+{
+  "name": "truelist",
+  "label": "Truelist",
+  "description": "Email validation powered by Truelist",
+  "version": "0.1.0",
+  "baseUrl": "https://api.truelist.io/api/v1",
+  "connections": [
+    {
+      "name": "truelist-api-key",
+      "label": "Truelist API Key",
+      "type": "basic",
+      "parameters": [
+        {
+          "name": "apiKey",
+          "label": "API Key",
+          "type": "text",
+          "required": true,
+          "help": "Your Truelist API key from https://truelist.io/dashboard"
+        }
+      ],
+      "common": {
+        "headers": {
+          "Authorization": "Bearer {{parameters.apiKey}}",
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      },
+      "test": {
+        "url": "/account",
+        "method": "GET"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "name": "validateEmail",
+      "label": "Validate Email",
+      "description": "Validate an email address for deliverability",
+      "type": "action",
+      "connection": "truelist-api-key",
+      "parameters": [
+        {
+          "name": "email",
+          "label": "Email Address",
+          "type": "text",
+          "required": true,
+          "help": "The email address to validate"
+        }
+      ],
+      "request": {
+        "url": "/verify",
+        "method": "POST",
+        "body": {
+          "email": "{{parameters.email}}"
+        }
+      },
+      "response": {
+        "output": [
+          { "name": "state", "label": "State", "type": "text" },
+          { "name": "sub_state", "label": "Sub-State", "type": "text" },
+          { "name": "suggestion", "label": "Suggestion", "type": "text" },
+          { "name": "free_email", "label": "Free Email", "type": "boolean" },
+          { "name": "role", "label": "Role Address", "type": "boolean" },
+          { "name": "disposable", "label": "Disposable", "type": "boolean" }
+        ]
+      }
+    },
+    {
+      "name": "getAccount",
+      "label": "Get Account Info",
+      "description": "Retrieve account details including plan and remaining credits",
+      "type": "action",
+      "connection": "truelist-api-key",
+      "parameters": [],
+      "request": {
+        "url": "/account",
+        "method": "GET"
+      },
+      "response": {
+        "output": [
+          { "name": "email", "label": "Email", "type": "text" },
+          { "name": "plan", "label": "Plan", "type": "text" },
+          { "name": "credits", "label": "Credits", "type": "number" }
+        ]
+      }
+    }
+  ]
+}

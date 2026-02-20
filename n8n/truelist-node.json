@@ -1,0 +1,84 @@
+{
+  "name": "n8n-nodes-truelist",
+  "version": "0.1.0",
+  "description": "Truelist email validation for n8n",
+  "nodes": [
+    {
+      "name": "Truelist",
+      "description": "Validate email addresses with Truelist",
+      "credentials": [
+        {
+          "name": "truelistApi",
+          "required": true
+        }
+      ],
+      "properties": [
+        {
+          "displayName": "Operation",
+          "name": "operation",
+          "type": "options",
+          "options": [
+            {
+              "name": "Validate Email",
+              "value": "validateEmail",
+              "description": "Validate an email address for deliverability"
+            },
+            {
+              "name": "Get Account",
+              "value": "getAccount",
+              "description": "Get account info (plan, credits)"
+            }
+          ],
+          "default": "validateEmail"
+        },
+        {
+          "displayName": "Email",
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "default": "",
+          "displayOptions": {
+            "show": {
+              "operation": ["validateEmail"]
+            }
+          }
+        }
+      ],
+      "requestDefaults": {
+        "baseURL": "https://api.truelist.io/api/v1",
+        "headers": {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ],
+  "credentials": [
+    {
+      "name": "truelistApi",
+      "displayName": "Truelist API",
+      "properties": [
+        {
+          "displayName": "API Key",
+          "name": "apiKey",
+          "type": "string",
+          "default": ""
+        }
+      ],
+      "authenticate": {
+        "type": "generic",
+        "properties": {
+          "headers": {
+            "Authorization": "Bearer {{$credentials.apiKey}}"
+          }
+        }
+      },
+      "test": {
+        "request": {
+          "method": "GET",
+          "url": "https://api.truelist.io/api/v1/account"
+        }
+      }
+    }
+  ]
+}

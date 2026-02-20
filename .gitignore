@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+.zapierapprc
+build/
+*.js.map
+*.d.ts
+!jest.config.ts
+.DS_Store
