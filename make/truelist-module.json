@@ -8,7 +8,7 @@
     {
       "name": "truelist-api-key",
       "label": "Truelist API Key",
-      "type": "basic",
+      "type": "apikey",
       "parameters": [
         {
           "name": "apiKey",

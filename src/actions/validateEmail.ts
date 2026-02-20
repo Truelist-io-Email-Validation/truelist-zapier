@@ -20,6 +20,38 @@ const perform = async (z: ZObject, bundle: Bundle) => {
     body: JSON.stringify({ email: bundle.inputData.email }),
   });
 
+  if (response.status === 401) {
+    throw new z.errors.Error(
+      'Authentication failed. Check your API key at https://truelist.io/dashboard',
+      'AuthenticationError',
+      response.status
+    );
+  }
+
+  if (response.status === 429) {
+    throw new z.errors.Error(
+      'Rate limit exceeded. Please wait before making more requests.',
+      'ThrottledError',
+      response.status
+    );
+  }
+
+  if (response.status >= 500) {
+    throw new z.errors.Error(
+      'Truelist API is temporarily unavailable. Please try again later.',
+      'ServerError',
+      response.status
+    );
+  }
+
+  if (response.status !== 200) {
+    throw new z.errors.Error(
+      `Unexpected response from Truelist API (status ${response.status})`,
+      'RequestError',
+      response.status
+    );
+  }
+
   const result = response.json as ValidationResult;
 
   return {

@@ -34,9 +34,7 @@ const authentication = {
         'Your Truelist API key from [truelist.io/dashboard](https://truelist.io/dashboard)',
     },
   ],
-  connectionLabel: (z: ZObject, bundle: Bundle) => {
-    return `Truelist (${bundle.inputData.email})`;
-  },
+  connectionLabel: '{{email}}',
 };
 
 export default authentication;

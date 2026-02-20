@@ -7,7 +7,7 @@ Automation platform integrations for the [Truelist](https://truelist.io) email v
 | Platform | Type | Status |
 |----------|------|--------|
 | Zapier | Full CLI app (TypeScript) | Ready |
-| n8n | Community node config | Ready |
+| n8n | Community node config | Configuration Reference |
 | Make.com | Module config | Ready |
 
 ## Truelist API
@@ -91,31 +91,28 @@ npx zapier users:add user@example.com 0.1.0
 
 ## n8n
 
-Community node configuration for self-hosted n8n instances.
+> **Status: Configuration Reference** -- The `n8n/truelist-node.json` file is a field/metadata reference only. It does not contain executable logic and cannot run as-is. To build a working n8n community node, you must create a proper npm package with TypeScript execution logic (see the [n8n node creation docs](https://docs.n8n.io/integrations/creating-nodes/)).
 
-### Installation
+### What's Included
 
-The `n8n/truelist-node.json` file contains the node and credential definitions. To use with n8n:
+The `n8n/truelist-node.json` file documents the node fields, credential schema, and API endpoints needed to build a full n8n community node. Use it as a starting point for the following structure:
 
-1. Copy `n8n/truelist-node.json` into your n8n custom nodes directory.
-2. Restart n8n.
-3. The **Truelist** node will appear in the node palette.
-
-For publishing as an npm package:
-
-```bash
-# From the n8n/ directory, create a package:
-# npm init
-# Add the node definition to package.json "n8n" field
-# npm publish
+```
+n8n-nodes-truelist/
+├── package.json            # with "n8n" field pointing to nodes/credentials
+├── nodes/
+│   └── Truelist/
+│       └── Truelist.node.ts   # execute() logic with HTTP requests
+├── credentials/
+│   └── TruelistApi.credentials.ts
+└── tsconfig.json
 ```
 
-### Usage in n8n
+### Reference Fields
 
-1. Add the **Truelist** node to your workflow.
-2. Create a new **Truelist API** credential with your API key.
-3. Select the **Validate Email** operation.
-4. Wire the email input from a previous node.
+- **Validate Email** -- POST `/api/v1/verify` with `{ email }` body
+- **Get Account** -- GET `/api/v1/account`
+- **Credential** -- Bearer token via `Authorization` header
 
 ---
 
