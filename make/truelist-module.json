@@ -2,8 +2,8 @@
   "name": "truelist",
   "label": "Truelist",
   "description": "Email validation powered by Truelist",
-  "version": "0.1.0",
-  "baseUrl": "https://api.truelist.io/api/v1",
+  "version": "0.2.0",
+  "baseUrl": "https://api.truelist.io",
   "connections": [
     {
       "name": "truelist-api-key",
@@ -21,12 +21,11 @@
       "common": {
         "headers": {
           "Authorization": "Bearer {{parameters.apiKey}}",
-          "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Accept": "application/json"
         }
       },
       "test": {
-        "url": "/account",
+        "url": "/me",
         "method": "GET"
       }
     }
@@ -48,39 +47,34 @@
         }
       ],
       "request": {
-        "url": "/verify",
-        "method": "POST",
-        "body": {
-          "email": "{{parameters.email}}"
-        }
+        "url": "/api/v1/verify_inline?email={{parameters.email}}",
+        "method": "POST"
       },
       "response": {
         "output": [
           { "name": "state", "label": "State", "type": "text" },
           { "name": "sub_state", "label": "Sub-State", "type": "text" },
-          { "name": "suggestion", "label": "Suggestion", "type": "text" },
-          { "name": "free_email", "label": "Free Email", "type": "boolean" },
-          { "name": "role", "label": "Role Address", "type": "boolean" },
-          { "name": "disposable", "label": "Disposable", "type": "boolean" }
+          { "name": "domain", "label": "Domain", "type": "text" },
+          { "name": "suggestion", "label": "Suggestion", "type": "text" }
         ]
       }
     },
     {
       "name": "getAccount",
       "label": "Get Account Info",
-      "description": "Retrieve account details including plan and remaining credits",
+      "description": "Retrieve account details including plan and admin status",
       "type": "action",
       "connection": "truelist-api-key",
       "parameters": [],
       "request": {
-        "url": "/account",
+        "url": "/me",
         "method": "GET"
       },
       "response": {
         "output": [
           { "name": "email", "label": "Email", "type": "text" },
-          { "name": "plan", "label": "Plan", "type": "text" },
-          { "name": "credits", "label": "Credits", "type": "number" }
+          { "name": "name", "label": "Name", "type": "text" },
+          { "name": "uuid", "label": "UUID", "type": "text" }
         ]
       }
     }
