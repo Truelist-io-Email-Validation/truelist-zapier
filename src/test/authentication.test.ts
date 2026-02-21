@@ -23,8 +23,8 @@ describe('authentication', () => {
 
     const response = await appTester(App.authentication.test, bundle);
     expect(response).toHaveProperty('email');
-    expect(response).toHaveProperty('plan');
-    expect(response).toHaveProperty('credits');
+    expect(response).toHaveProperty('name');
+    expect(response).toHaveProperty('uuid');
   });
 
   it('should have the correct auth type', () => {

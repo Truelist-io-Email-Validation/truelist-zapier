@@ -14,21 +14,42 @@ Automation platform integrations for the [Truelist](https://truelist.io) email v
 
 All integrations use the [Truelist API](https://truelist.io):
 
-- **POST** `/api/v1/verify` -- Validate an email address
-- **GET** `/api/v1/account` -- Get account info (plan, credits)
+- **POST** `/api/v1/verify_inline?email=...` -- Validate an email address (email passed as query parameter)
+- **GET** `/me` -- Get account info (email, name, uuid)
+
+### Response Format
+
+```json
+{
+  "emails": [
+    {
+      "address": "user@example.com",
+      "domain": "example.com",
+      "canonical": "user",
+      "mx_record": null,
+      "first_name": null,
+      "last_name": null,
+      "email_state": "ok",
+      "email_sub_state": "email_ok",
+      "verified_at": "2026-02-21T10:00:00.000Z",
+      "did_you_mean": null
+    }
+  ]
+}
+```
 
 ### Response States
 
 | State | Description |
 |-------|-------------|
-| `valid` | Email is deliverable |
-| `invalid` | Email is not deliverable |
-| `risky` | Email may be deliverable but has risk factors |
+| `ok` | Email is deliverable |
+| `email_invalid` | Email is not deliverable |
+| `accept_all` | Domain accepts all addresses |
 | `unknown` | Could not determine deliverability |
 
 ### Response Sub-States
 
-`ok`, `accept_all`, `disposable_address`, `role_address`, `failed_mx_check`, `failed_spam_trap`, `failed_no_mailbox`, `failed_greylisted`, `failed_syntax_check`, `unknown`
+`email_ok`, `accept_all`, `is_disposable`, `is_role`, `failed_mx_check`, `failed_spam_trap`, `failed_no_mailbox`, `failed_greylisted`, `failed_syntax_check`, `unknown`
 
 ---
 
@@ -38,7 +59,7 @@ The primary integration, built with the Zapier CLI framework (`zapier-platform-c
 
 ### Available Actions
 
-- **Validate Email** -- Validate an email address and get deliverability state, sub-state, and metadata (free email, role address, disposable, suggestion).
+- **Validate Email** -- Validate an email address and get deliverability state, sub-state, domain, canonical, MX record, first/last name, and suggestion.
 
 ### Setup
 
@@ -110,8 +131,8 @@ n8n-nodes-truelist/
 
 ### Reference Fields
 
-- **Validate Email** -- POST `/api/v1/verify` with `{ email }` body
-- **Get Account** -- GET `/api/v1/account`
+- **Validate Email** -- POST `/api/v1/verify_inline?email=...` (email as query parameter)
+- **Get Account** -- GET `/me`
 - **Credential** -- Bearer token via `Authorization` header
 
 ---
@@ -131,7 +152,7 @@ The `make/truelist-module.json` file defines the Truelist connection and modules
 ### Available Modules
 
 - **Validate Email** -- Validate a single email address.
-- **Get Account Info** -- Retrieve account plan and credit balance.
+- **Get Account Info** -- Retrieve account info (email, name, uuid).
 
 ### Usage in Make.com
 

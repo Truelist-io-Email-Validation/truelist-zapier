@@ -7,8 +7,8 @@ const perform = async (_z: ZObject, _bundle: Bundle) => {
     {
       id: 'sample-1',
       email: 'user@example.com',
-      state: 'valid',
-      sub_state: 'ok',
+      state: 'ok',
+      subState: 'email_ok',
       validated_at: new Date().toISOString(),
     },
   ];
@@ -28,8 +28,8 @@ const newValidation = {
     sample: {
       id: 'sample-1',
       email: 'user@example.com',
-      state: 'valid',
-      sub_state: 'ok',
+      state: 'ok',
+      subState: 'email_ok',
       validated_at: '2026-02-20T00:00:00.000Z',
     },
   },
