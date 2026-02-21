@@ -2,7 +2,7 @@ import { Bundle, ZObject } from 'zapier-platform-core';
 
 const test = async (z: ZObject, bundle: Bundle) => {
   const response = await z.request({
-    url: 'https://api.truelist.io/api/v1/account',
+    url: 'https://api.truelist.io/me',
     method: 'GET',
     headers: {
       Authorization: `Bearer ${bundle.authData.api_key}`,

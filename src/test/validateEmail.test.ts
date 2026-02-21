@@ -29,11 +29,12 @@ describe('validate email action', () => {
       bundle
     );
     expect(result).toHaveProperty('email', 'user@example.com');
+    expect(result).toHaveProperty('domain');
     expect(result).toHaveProperty('state');
-    expect(result).toHaveProperty('sub_state');
+    expect(result).toHaveProperty('subState');
     expect(result).toHaveProperty('is_valid');
     expect(result).toHaveProperty('is_deliverable');
-    expect(['valid', 'invalid', 'risky', 'unknown']).toContain(result.state);
+    expect(['ok', 'email_invalid', 'accept_all', 'unknown']).toContain(result.state);
   });
 
   it('should be registered as a create action', () => {
@@ -44,7 +45,9 @@ describe('validate email action', () => {
   it('should have correct sample data', () => {
     const sample = App.creates.validate_email.operation.sample;
     expect(sample).toHaveProperty('email');
+    expect(sample).toHaveProperty('domain');
     expect(sample).toHaveProperty('state');
+    expect(sample).toHaveProperty('subState');
     expect(sample).toHaveProperty('is_valid');
     expect(sample).toHaveProperty('is_deliverable');
   });

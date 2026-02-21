@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-truelist",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Truelist email validation for n8n",
   "nodes": [
     {
@@ -26,7 +26,7 @@
             {
               "name": "Get Account",
               "value": "getAccount",
-              "description": "Get account info (plan, credits)"
+              "description": "Get account info (name, email, plan)"
             }
           ],
           "default": "validateEmail"
@@ -45,10 +45,9 @@
         }
       ],
       "requestDefaults": {
-        "baseURL": "https://api.truelist.io/api/v1",
+        "baseURL": "https://api.truelist.io",
         "headers": {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Accept": "application/json"
         }
       }
     }
@@ -76,7 +75,7 @@
       "test": {
         "request": {
           "method": "GET",
-          "url": "https://api.truelist.io/api/v1/account"
+          "url": "https://api.truelist.io/me"
         }
       }
     }
