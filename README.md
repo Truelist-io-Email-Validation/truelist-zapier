@@ -1,6 +1,11 @@
 # Truelist Integrations
 
+[![Free tier](https://img.shields.io/badge/free_plan-100_validations-4A7C59?style=flat-square)](https://truelist.io/pricing)
 Automation platform integrations for the [Truelist](https://truelist.io) email validation API. Includes configurations for **Zapier**, **n8n**, and **Make.com**.
+
+> **Start free** — 100 validations + 10 enhanced credits, no credit card required.
+> [Get your API key →](https://app.truelist.io/signup?utm_source=github&utm_medium=readme&utm_campaign=free-plan&utm_content=truelist-zapier)
+> Test your workflow with the free plan's 100 validations.
 
 ## Supported Platforms
 
@@ -192,6 +197,10 @@ truelist-zapier/
 |----------|----------|-------------|
 | `TRUELIST_API_KEY` | For tests | Your Truelist API key |
 
+
+## Getting Started
+
+Sign up for a [free Truelist account](https://app.truelist.io/signup?utm_source=github&utm_medium=readme&utm_campaign=free-plan&utm_content=truelist-zapier) to get your API key. The free plan includes 100 validations and 10 enhanced credits — no credit card required.
 ## License
 
 MIT
